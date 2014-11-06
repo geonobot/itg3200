@@ -8,7 +8,7 @@
 #ifndef ITG3200_H_
 #define ITG3200_H_
 
-#include "twi.h"
+#include <twi.h>
 #include "imu.h"
 
 #define ITG3200_ADDRESS 0x68 // 7-bits i2c address
@@ -19,7 +19,8 @@
 #define GYRO_SENSITIVITY 14.375 // 14.375 LSB per °/s
 
 /* Register map */
-#define WHO_I_AM 0x00
+#define WHO_AM_I 0x00
+#define DLPF 0x16 // digital low_pass filter
 #define TEMP_OUT_H 0x1B
 #define TEMP_OUT_L 0x1C
 #define GYRO_XOUT_H 0x1D
@@ -28,6 +29,16 @@
 #define GYRO_YOUT_L 0x20
 #define GYRO_ZOUT_H 0x21
 #define GYRO_ZOUT_L 0x22
+
+/* DLPF config */
+#define FS_SEL 0x18
+#define DLPF_256_Hz 0x00
+#define DLPF_188_Hz 0x01
+#define DLPF_98_Hz 0x02
+#define DLPF_42_Hz 0x03
+#define DLPF_20_Hz 0x04
+#define DLPF_10_Hz 0x05
+#define DLPF_5_Hz 0x06
 
 void
 itg3200_setup (void);

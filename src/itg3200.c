@@ -21,7 +21,13 @@
 void
 itg3200_setup (void)
 {
+  volatile uint8_t buffer[2];
+
   twi_master_setup (/*SCL_FREQ_100*/);
+
+  buffer[0] = DLPF;
+  buffer[1] = FS_SEL | DLPF_256_Hz;
+  twi_write_bytes (ITG3200_ADDRESS, 2, buffer);
 }
 
 /**
@@ -33,7 +39,7 @@ uint8_t
 itg3200_read_device_id (void)
 {
   volatile uint8_t device_id;
-  volatile uint8_t reg = WHO_I_AM;
+  volatile uint8_t reg = WHO_AM_I;
 
   twi_read_bytes (ITG3200_ADDRESS, &reg, 1, &device_id);
 
